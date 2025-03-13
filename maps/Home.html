@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page - Options</title>
+  <style>
+    /* Ensure the body and html take up the full height of the viewport */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('C:\Users\dilip\OneDrive\Desktop\world-map.gif.png'); /* Replace 'world-map.jpg' with the path to your image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Container that holds the content */
+    #home-container {
+      width: 200%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+       /* Semi-transparent white background */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: auto;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .option {
+      background-color: #060606;
+      color: white;
+      padding: 15px;
+      margin: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .option:hover {
+      background-color: #218838;
+    }
+
+    .searched {
+      background-color: rgb(2, 233, 250) !important;  /* Red background for search match */
+      color: white !important;  /* White text for search match */
+    }
+
+    .selected {
+      color: rgb(2, 239, 232);  /* Ensure selected button appears in red */
+    }
+
+    #search-bar {
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 1200px; /* Set a max width to avoid too wide buttons on large screens */
+      overflow-y: auto;
+    }
+
+    /* Add some responsiveness */
+    @media (max-width: 1200px) {
+      .button-container {
+        grid-template-columns: repeat(5, 1fr); /* 5 buttons per row on smaller screens */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .button-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 buttons per row on mobile screens */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .button-container {
+        grid-template-columns: 1fr; /* 1 button per row on very small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="home-container">
+    <header>
+      <h1>Choose a map</h1>
+      <p>Select the map</p>
+    </header>
+
+    <input type="text" id="search-bar" placeholder="Search options..." onkeyup="searchOptions()">
+
+    <main class="button-container">
+      <!-- Generating 195 buttons -->
+      <button class="option" id="option1" onclick="window.open('World.html', '_blank')">WORLD MAP</button>
+      <button class="option" id="option2" onclick="window.open('India.html', '_blank')">INDIA MAP</button>
+      <button class="option" id="option3" onclick="window.open('Afghanistan.html', '_blank')">Afghanistan Map</button>
+      <button class="option" id="option4" onclick="window.open('Albania.html', '_blank')">Albania</button>
+      <button class="option" id="option5" onclick="window.open('Algeria.html', '_blank')">Algeria</button>
+      <button class="option" id="option6" onclick="window.open('Andorra.html', '_blank')">Andorra</button>
+      <button class="option" id="option7" onclick="window.open('Angola.html', '_blank')">Angola</button>
+      <button class="option" id="option8" onclick="window.open('Antigua and Barbuda.html', '_blank')">Antigua and Barbuda</button>
+      <button class="option" id="option9" onclick="window.open('Argentina.html', '_blank')">Argentina</button>
+      <button class="option" id="option10" onclick="window.open('Armenia.html', '_blank')">Armenia</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('Australia.html', '_blank')">Australia</button>
+      <button class="option" id="option12" onclick="window.open('Austria.html', '_blank')">Austria</button>
+      <button class="option" id="option13" onclick="window.open('Azerbaijan.html', '_blank')">Azerbaijan</button>
+      <button class="option" id="option14" onclick="window.open('Bahamas.html', '_blank')">Bahamas</button>
+      <button class="option" id="option15" onclick="window.open('Bahrain.html', '_blank')">Bahrain</button>
+      <button class="option" id="option16" onclick="window.open('Bangladesh.html', '_blank')">Bangladesh</button>
+      <button class="option" id="option17" onclick="window.open('Barbados.html', '_blank')">Barbados</button>
+      <button class="option" id="option18" onclick="window.open('Belarus.html', '_blank')">Belarus/button>
+      <button class="option" id="option19" onclick="window.open('Belgium.html', '_blank')">Belgium</button>
+      <button class="option" id="option20" onclick="window.open('Belize.html', '_blank')">Belize</button>
+      <button class="option" id="option1" onclick="window.open('Benin.html', '_blank')">Benin
+      </button>
+      <button class="option" id="option2" onclick="window.open('Bhutan.html', '_blank')">Bhutan</button>
+      <button class="option" id="option3" onclick="window.open('Bolivia.html', '_blank')">Bolivia</button>
+      <button class="option" id="option4" onclick="window.open('Bosnia and Herzegovina.html', '_blank')">Bosnia and Herzegovina</button>
+      <button class="option" id="option5" onclick="window.open('Botswana.html', '_blank')">Botswana</button>
+      <button class="option" id="option6" onclick="window.open('Brazil.html', '_blank')">Brazil</button>
+      <button class="option" id="option7" onclick="window.open('Brunei.html', '_blank')">Brunei</button>
+      <button class="option" id="option8" onclick="window.open('Bulgaria.html', '_blank')">Bulgaria</button>
+      <button class="option" id="option9" onclick="window.open('Burkina Faso.html', '_blank')">Burkina Faso</button>
+      <button class="option" id="option10" onclick="window.open('Burundi.html', '_blank')">Burundi</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('Cabo Verde.html', '_blank')">Cabo Verde</button>
+      <button class="option" id="option12" onclick="window.open('Cambodia.html', '_blank')">Cambodia</button>
+      <button class="option" id="option13" onclick="window.open('Cameroon.html', '_blank')">Cameroon</button>
+      <button class="option" id="option14" onclick="window.open('Canada.html', '_blank')">Canada</button>
+      <button class="option" id="option15" onclick="window.open('Central African Republic.html', '_blank')">Central African Republic</button>
+      <button class="option" id="option16" onclick="window.open('Chad.html', '_blank')">Chad</button>
+      <button class="option" id="option17" onclick="window.open('Chile.html', '_blank')">Chile</button>
+      <button class="option" id="option18" onclick="window.open('China.html', '_blank')">China</button>
+      <button class="option" id="option19" onclick="window.open('Colombia.html', '_blank')">Colombia</button>
+      <button class="option" id="option20" onclick="window.open('Comoros.html', '_blank')">Comoros</button>
+      <button class="option" id="option1" onclick="window.open('Congo (Republic of the Congo).html', '_blank')">Congo (Republic of the Congo)</button>
+      <button class="option" id="option2" onclick="window.open('Costa Rica.html', '_blank')">Costa Rica</button>
+      <button class="option" id="option3" onclick="window.open('Croatia.html', '_blank')">Croatia</button>
+      <button class="option" id="option4" onclick="window.open('Cuba.html', '_blank')">Cuba</button>
+      <button class="option" id="option5" onclick="window.open('Cyprus.html', '_blank')">Cyprus</button>
+      <button class="option" id="option6" onclick="window.open('Czech Republic.html', '_blank')">Czech Republic</button>
+      <button class="option" id="option7" onclick="window.open('Democratic Republic of the Congo.html', '_blank')">Democratic Republic of the Congo</button>
+      <button class="option" id="option8" onclick="window.open('Denmark.html', '_blank')">Denmark</button>
+      <button class="option" id="option9" onclick="window.open('Djibouti.html', '_blank')">Djibouti</button>
+      <button class="option" id="option10" onclick="window.open('Dominica.html', '_blank')">Dominica</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('Dominican Republic.html', '_blank')">Dominican Republic</button>
+      <button class="option" id="option12" onclick="window.open('East Timor (Timor-Leste).html', '_blank')">East Timor (Timor-Leste)</button>
+      <button class="option" id="option13" onclick="window.open('Ecuador.html', '_blank')">Ecuador</button>
+      <button class="option" id="option14" onclick="window.open('Egypt.html', '_blank')">Egypt</button>
+      <button class="option" id="option15" onclick="window.open('El Salvador.html', '_blank')">El Salvador</button>
+      <button class="option" id="option16" onclick="window.open('oEquatorial Guinea.html', '_blank')">Equatorial Guinea</button>
+      <button class="option" id="option17" onclick="window.open('Eritrea.html', '_blank')">Eritrea</button>
+      <button class="option" id="option18" onclick="window.open('Estonia.html', '_blank')">Estonia</button>
+      <button class="option" id="option19" onclick="window.open('Eswatini (formerly Swaziland).html', '_blank')">Eswatini (formerly Swaziland)</button>
+      <button class="option" id="option20" onclick="window.open('Ethiopia.html', '_blank')">Ethiopia</button>
+      <button class="option" id="option1" onclick="window.open('Fiji.html', '_blank')">Fiji</button>
+      <button class="option" id="option2" onclick="window.open('Finland.html', '_blank')">FinlandP</button>
+      <button class="option" id="option3" onclick="window.open('France.html', '_blank')">France</button>
+      <button class="option" id="option4" onclick="window.open('Gabon.html', '_blank')">Gabon</button>
+      <button class="option" id="option5" onclick="window.open('Gambia.html', '_blank')">Gambia</button>
+      <button class="option" id="option6" onclick="window.open('Georgia.html', '_blank')">Georgia</button>
+      <button class="option" id="option7" onclick="window.open('Germany.html', '_blank')">Germany</button>
+      <button class="option" id="option8" onclick="window.open('Ghana.html', '_blank')">Ghana</button>
+      <button class="option" id="option9" onclick="window.open('Greece.html', '_blank')">Greece</button>
+      <button class="option" id="option10" onclick="window.open('Grenada.html', '_blank')">Grenada</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('Guatemala.html', '_blank')">Guatemala</button>
+      <button class="option" id="option12" onclick="window.open('Guinea.html', '_blank')">Guinea2</button>
+      <button class="option" id="option13" onclick="window.open('Guinea-Bissau.html', '_blank')">Guinea-Bissau</button>
+      <button class="option" id="option14" onclick="window.open('Guyana.html', '_blank')">Guyana</button>
+      <button class="option" id="option15" onclick="window.open('Haiti.html', '_blank')">Haiti</button>
+      <button class="option" id="option16" onclick="window.open('Honduras.html', '_blank')">Honduras</button>
+      <button class="option" id="option17" onclick="window.open('Hungary.html', '_blank')">Hungary</button>
+      <button class="option" id="option18" onclick="window.open('Iceland.html', '_blank')">Iceland</button>
+      <button class="option" id="option19" onclick="window.open('Mali.html', '_blank')">Mali</button>
+      <button class="option" id="option20" onclick="window.open('Malta.html', '_blank')">Malta</button>
+      <button class="option" id="option1" onclick="window.open('Marshall Islands.html', '_blank')">Marshall Islands</button>
+      <button class="option" id="option2" onclick="window.open('Mauritania.html', '_blank')">Mauritania</button>
+      <button class="option" id="option3" onclick="window.open('Marshall Islands.html', '_blank')">Marshall Islandss</button>
+      <button class="option" id="option4" onclick="window.open('Iran.html', '_blank')">Iran</button>
+      <button class="option" id="option5" onclick="window.open('Iraq.html', '_blank')">Iraq</button>
+      <button class="option" id="option6" onclick="window.open('Ireland.html', '_blank')">Ireland</button>
+      <button class="option" id="option7" onclick="window.open('Israel.html', '_blank')">Israel</button>
+      <button class="option" id="option8" onclick="window.open('Italy.html', '_blank')">Italy</button>
+      <button class="option" id="option9" onclick="window.open('Ivory Coast.html', '_blank')">Ivory Coast</button>
+      <button class="option" id="option10" onclick="window.open('Jamaica.html', '_blank')">Jamaica</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('Japan.html', '_blank')">Japan</button>
+      <button class="option" id="option12" onclick="window.open('Jordan.html', '_blank')">Jordan</button>
+      <button class="option" id="option13" onclick="window.open('Kazakhstan.html', '_blank')">Kazakhstan</button>
+      <button class="option" id="option14" onclick="window.open('Kenya.html', '_blank')">Kenya</button>
+      <button class="option" id="option15" onclick="window.open('Kiribati.html', '_blank')">Kiribati</button>
+      <button class="option" id="option16" onclick="window.open('Korea (North Korea).html', '_blank')">Korea (North Korea)</button>
+      <button class="option" id="option17" onclick="window.open('Korea (South Korea).html', '_blank')">Korea (South Korea)</button>
+      <button class="option" id="option18" onclick="window.open('Kuwait.html', '_blank')">Kuwait</button>
+      <button class="option" id="option19" onclick="window.open('Kyrgyzstan.html', '_blank')">Kyrgyzstan</button>
+      <button class="option" id="option20" onclick="window.open('Laos.html', '_blank')">Laos</button
+        ><button class="option" id="option1" onclick="window.open('Latvia.html', '_blank')">Latvia</button>
+      <button class="option" id="option2" onclick="window.open('Lebanon.html', '_blank')">Lebanon</button>
+      <button class="option" id="option3" onclick="window.open('Lesotho.html', '_blank')">Lesotho</button>
+      <button class="option" id="option4" onclick="window.open('Liberia.html', '_blank')">Liberia</button>
+      <button class="option" id="option5" onclick="window.open('Libya.html', '_blank')">Libya</button>
+      <button class="option" id="option6" onclick="window.open('Liechtenstein.html', '_blank')">Liechtenstein</button>
+      <button class="option" id="option7" onclick="window.open('Lithuania.html', '_blank')">Lithuania</button>
+      <button class="option" id="option8" onclick="window.open('Luxembourg.html', '_blank')">Luxembourg</button>
+      <button class="option" id="option9" onclick="window.open('Madagascar.html', '_blank')">Madagascar</button>
+      <button class="option" id="option10" onclick="window.open('Malawi.html', '_blank')">Malawi</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('Malaysia.html', '_blank')">Malaysia</button>
+      <button class="option" id="option12" onclick="window.open('Maldives.html', '_blank')">Maldives</button>
+      <button class="option" id="option13" onclick="window.open('Mauritius.html', '_blank')">Mauritius</button>
+      <button class="option" id="option14" onclick="window.open('Mexico.html', '_blank')">Mexico</button>
+      <button class="option" id="option15" onclick="window.open('Micronesia.html', '_blank')">Micronesia</button>
+      <button class="option" id="option16" onclick="window.open('Moldova.html', '_blank')">Moldova</button>
+      <button class="option" id="option17" onclick="window.open('Monaco.html', '_blank')">Monaco</button>
+      <button class="option" id="option18" onclick="window.open('Mongolia.html', '_blank')">Mongolia</button>
+      <button class="option" id="option19" onclick="window.open('Montenegro.html', '_blank')">Montenegro</button>
+      <button class="option" id="option20" onclick="window.open('Morocco.html', '_blank')">Morocco</button>
+      <button class="option" id="option1" onclick="window.open('Mozambique.html', '_blank')">Mozambique</button>
+      <button class="option" id="option2" onclick="window.open('Myanmar (Burma).html', '_blank')">Myanmar (Burma)</button>
+      <button class="option" id="option3" onclick="window.open('Namibia.html', '_blank')">Namibia</button>
+      <button class="option" id="option4" onclick="window.open('Nauru.html', '_blank')">Nauru</button>
+      <button class="option" id="option5" onclick="window.open('Nepal.html', '_blank')">Nepal</button>
+      <button class="option" id="option6" onclick="window.open('Netherlands.html', '_blank')">Netherlands</button>
+      <button class="option" id="option7" onclick="window.open('New Zealand.html', '_blank')">New Zealand</button>
+      <button class="option" id="option8" onclick="window.open('Nicaragua.html', '_blank')">Nicaragua</button>
+      <button class="option" id="option9" onclick="window.open('Niger.html', '_blank')">Niger</button>
+      <button class="option" id="option10" onclick="window.open('Nigeria.html', '_blank')">Nigeria</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('North Macedonia.html', '_blank')">North Macedonia</button>
+      <button class="option" id="option12" onclick="window.open('Norway.html', '_blank')">Norway</button>
+      <button class="option" id="option13" onclick="window.open('Oman.html', '_blank')">Oman</button>
+      <button class="option" id="option14" onclick="window.open('Pakistan.html', '_blank')">Pakistan</button>
+      <button class="option" id="option15" onclick="window.open('Palau.html', '_blank')">Palau</button>
+      <button class="option" id="option16" onclick="window.open('Panama.html', '_blank')">Panama</button>
+      <button class="option" id="option17" onclick="window.open('Papua New Guinea.html', '_blank')">Papua New Guinea</button>
+      <button class="option" id="option18" onclick="window.open('Paraguay.html', '_blank')">Paraguay</button>
+      <button class="option" id="option19" onclick="window.open('Peru.html', '_blank')">Peru</button>
+      <button class="option" id="option20" onclick="window.open('option20.html', '_blank')">Option 20</button>
+      <button class="option" id="option1" onclick="window.open('world.html', '_blank')">WORLD MAP</button>
+      <button class="option" id="option2" onclick="window.open('india.html', '_blank')">INDIA MAP</button>
+      <button class="option" id="option3" onclick="window.open('option3.html', '_blank')">Option 3</button>
+      <button class="option" id="option4" onclick="window.open('option4.html', '_blank')">Option 4</button>
+      <button class="option" id="option5" onclick="window.open('option5.html', '_blank')">Option 5</button>
+      <button class="option" id="option6" onclick="window.open('option6.html', '_blank')">Option 6</button>
+      <button class="option" id="option7" onclick="window.open('option7.html', '_blank')">Option 7</button>
+      <button class="option" id="option8" onclick="window.open('option8.html', '_blank')">Option 8</button>
+      <button class="option" id="option9" onclick="window.open('option9.html', '_blank')">Option 9</button>
+      <button class="option" id="option10" onclick="window.open('option10.html', '_blank')">Option 10</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('option11.html', '_blank')">Option 11</button>
+      <button class="option" id="option12" onclick="window.open('option12.html', '_blank')">Option 12</button>
+      <button class="option" id="option13" onclick="window.open('option13.html', '_blank')">Option 13</button>
+      <button class="option" id="option14" onclick="window.open('option14.html', '_blank')">Option 14</button>
+      <button class="option" id="option15" onclick="window.open('option15.html', '_blank')">Option 15</button>
+      <button class="option" id="option16" onclick="window.open('option16.html', '_blank')">Option 16</button>
+      <button class="option" id="option17" onclick="window.open('option17.html', '_blank')">Option 17</button>
+      <button class="option" id="option18" onclick="window.open('option18.html', '_blank')">Option 18</button>
+      <button class="option" id="option19" onclick="window.open('option19.html', '_blank')">Option 19</button>
+      <button class="option" id="option20" onclick="window.open('option20.html', '_blank')">Option 20</button>
+      <button class="option" id="option1" onclick="window.open('world.html', '_blank')">WORLD MAP</button>
+      <button class="option" id="option2" onclick="window.open('india.html', '_blank')">INDIA MAP</button>
+      <button class="option" id="option3" onclick="window.open('option3.html', '_blank')">Option 3</button>
+      <button class="option" id="option4" onclick="window.open('option4.html', '_blank')">Option 4</button>
+      <button class="option" id="option5" onclick="window.open('option5.html', '_blank')">Option 5</button>
+      <button class="option" id="option6" onclick="window.open('option6.html', '_blank')">Option 6</button>
+      <button class="option" id="option7" onclick="window.open('option7.html', '_blank')">Option 7</button>
+      <button class="option" id="option8" onclick="window.open('option8.html', '_blank')">Option 8</button>
+      <button class="option" id="option9" onclick="window.open('option9.html', '_blank')">Option 9</button>
+      <button class="option" id="option10" onclick="window.open('option10.html', '_blank')">Option 10</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('option11.html', '_blank')">Option 11</button>
+      <button class="option" id="option12" onclick="window.open('option12.html', '_blank')">Option 12</button>
+      <button class="option" id="option13" onclick="window.open('option13.html', '_blank')">Option 13</button>
+      <button class="option" id="option14" onclick="window.open('option14.html', '_blank')">Option 14</button>
+      <button class="option" id="option15" onclick="window.open('option15.html', '_blank')">Option 15</button>
+      <button class="option" id="option16" onclick="window.open('option16.html', '_blank')">Option 16</button>
+      <button class="option" id="option17" onclick="window.open('option17.html', '_blank')">Option 17</button>
+      <button class="option" id="option18" onclick="window.open('option18.html', '_blank')">Option 18</button>
+      <button class="option" id="option19" onclick="window.open('option19.html', '_blank')">Option 19</button>
+      <button class="option" id="option20" onclick="window.open('option20.html', '_blank')">Option 20</button>
+      <button class="option" id="option1" onclick="window.open('world.html', '_blank')">WORLD MAP</button>
+      <button class="option" id="option2" onclick="window.open('india.html', '_blank')">INDIA MAP</button>
+      <button class="option" id="option3" onclick="window.open('option3.html', '_blank')">Option 3</button>
+      <button class="option" id="option4" onclick="window.open('option4.html', '_blank')">Option 4</button>
+      <button class="option" id="option5" onclick="window.open('option5.html', '_blank')">Option 5</button>
+      <button class="option" id="option6" onclick="window.open('option6.html', '_blank')">Option 6</button>
+      <button class="option" id="option7" onclick="window.open('option7.html', '_blank')">Option 7</button>
+      <button class="option" id="option8" onclick="window.open('option8.html', '_blank')">Option 8</button>
+      <button class="option" id="option9" onclick="window.open('option9.html', '_blank')">Option 9</button>
+      <button class="option" id="option10" onclick="window.open('option10.html', '_blank')">Option 10</button>
+      
+      <!-- Buttons 11-20 -->
+      <button class="option" id="option11" onclick="window.open('option11.html', '_blank')">Option 11</button>
+      <button class="option" id="option12" onclick="window.open('option12.html', '_blank')">Option 12</button>
+      <button class="option" id="option13" onclick="window.open('option13.html', '_blank')">Option 13</button>
+      <button class="option" id="option14" onclick="window.open('option14.html', '_blank')">Option 14</button>
+      <button class="option" id="option15" onclick="window.open('option15.html', '_blank')">Option 15</button>
+      <button class="option" id="option16" onclick="window.open('option16.html', '_blank')">Option 16</button>
+      <button class="option" id="option17" onclick="window.open('option17.html', '_blank')">Option 17</button>
+      <button class="option" id="option18" onclick="window.open('option18.html', '_blank')">Option 18</button>
+      <button class="option" id="option19" onclick="window.open('option19.html', '_blank')">Option 19</button>
+      <button class="option" id="option20" onclick="window.open('option20.html', '_blank')">Option 20</button>
+
+      
+      
+      <button class="option" id="option195" onclick="window.open('option195.html', '_blank')">Option 195</button>
+      
+    </main>
+  </div>
+
+  
+  <script>
+    let lastSelectedOption = null;
+
+    function searchOptions() {
+      let input = document.getElementById('search-bar').value.toLowerCase();
+      let buttons = document.querySelectorAll('.option');
+
+      buttons.forEach(button => {
+        let text = button.innerText.toLowerCase();
+        if (text.includes(input)) {
+          button.style.display = 'block';
+          button.classList.add('searched');  // Highlight matching buttons with red background and white text
+        } else {
+          button.style.display = 'none';
+          button.classList.remove('searched');  // Remove highlight if no match
+        }
+      });
+
+      // If search bar is empty, reset all buttons' styles
+      if (input === '') {
+        buttons.forEach(button => {
+          button.classList.remove('searched');
+          button.classList.remove('selected');
+          button.style.display = 'block'; // Ensure all buttons are visible
+        });
+      }
+    }
+
+    // Handle the selection of options
+    function selectOption(button) {
+      if (lastSelectedOption) {
+        lastSelectedOption.classList.remove('selected'); // Remove red color from previously selected option
+      }
+      button.classList.add('selected'); // Add red color to the selected option
+      lastSelectedOption = button; // Store the reference to the last selected button
+    }
+  </script>
+</body>
+</html>
