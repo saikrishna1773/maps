@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive World Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Search Container */
+    #search-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      background-color: #f8f8f8;
+      z-index: 1000;
+    }
+
+    #search-bar {
+      width: 60%;
+      max-width: 500px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    /* Countries Button */
+    #countries-button {
+      margin-left: 10px;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #countries-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Main Container */
+    #main-container {
+      display: flex;
+      flex-direction: row;
+      height: calc(100% - 50px);
+      width: 100%;
+      position: relative;
+      padding: 10px;
+    }
+
+    /* Map Container */
+    #map-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Details Container */
+    #details-container {
+      flex: 0;
+      width: 0;
+      overflow: hidden;
+      padding: 10px;
+      background-color: #f8f8f8;
+      transition: all 0.5s ease;
+    }
+
+    /* Country List Container */
+    #country-list-container {
+      display: none;
+      padding: 10px;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    /* Country List Search Bar */
+    #country-search-bar {
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    #country-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #country-list li {
+      margin: 5px 0;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #country-list li:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Map */
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Heading */
+    h2 {
+      margin-top: 0;
+    }
+
+    /* Back Button */
+    .back-button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Go to Home Button */
+    .go-home-button {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 1000;
+    }
+    .go-home-button:hover {
+      background-color: #218838;
+    }
+
+    /* Responsive Design for Smaller Screens */
+    @media screen and (max-width: 1024px) {
+      #search-bar {
+        width: 90%;
+      }
+
+      #main-container {
+        flex-direction: column;
+      }
+
+      #map-container {
+        height: 50vh; /* Reduce map size for smaller screens */
+      }
+
+      #details-container {
+        width: 100%;
+        height: 50vh; /* Make details take half the screen */
+      }
+
+      /* Go to Home button adjustment */
+      .go-home-button {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      #search-bar {
+        width: 95%;
+      }
+
+      /* For small screens like tablets */
+      #map-container {
+        height: 55vh;
+      }
+
+      #details-container {
+        width: 100%;
+        height: 45vh;
+      }
+
+      /* Adjust Go to Home button */
+      .go-home-button {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      #search-bar {
+        width: 95%;
+      }
+
+      /* For mobile devices */
+      #map-container {
+        height: 60vh;
+      }
+
+      #details-container {
+        width: 100%;
+        height: 40vh;
+      }
+
+      /* Adjust Go to Home button */
+      .go-home-button {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Search Bar and Button -->
+  <div id="search-container">
+    <input id="search-bar" type="text" placeholder="Search for a country..." />
+    <button id="countries-button" onclick="toggleCountryList()">Countries</button>
+  </div>
+  
+  <div id="main-container">
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
+    <div id="details-container">
+      <h2>Country Details</h2>
+      <div id="country-details">
+        <p>Select a country on the map to view details.</p>
+      </div>
+      <button id="back-button" class="back-button" style="display: none;">Back</button>
+    </div>
+    <div id="country-list-container">
+      <h2>Countries and Capitals</h2>
+      <input id="country-search-bar" type="text" placeholder="Search countries..." oninput="filterCountryList()" />
+      <ul id="country-list"></ul>
+    </div>
+  </div>
+
+  <!-- Go to Home Button (always visible) -->
+  <button id="go-home-button" class="go-home-button" onclick="goToHomePage()">Go to Home</button>
+
+  <!-- JavaScript included here -->
+  <script>
+    const map = L.map('map').setView([20, 0], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let countryLayer;
+    let selectedCountryLayer;
+    let countriesData;
+    let countrySelectedOnce = false;
+
+    fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      .then(response => response.json())
+      .then(data => {
+        countriesData = data;
+        countryLayer = L.geoJSON(data, {
+          style: { fillColor: '#ADD8E6', weight: 1, color: 'black', fillOpacity: 0.7 },
+          onEachFeature: (feature, layer) => {
+            layer.on('click', () => handleCountrySelection(feature));
+          }
+        }).addTo(map);
+
+        const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('keyup', (event) => {
+          if (event.key === 'Enter') {
+            const query = searchBar.value.toLowerCase();
+            const feature = data.features.find(f => f.properties.ADMIN.toLowerCase() === query);
+            if (feature) {
+              handleCountrySelection(feature);
+            } else {
+              alert('Country not found. Please try again.');
+            }
+          }
+        });
+      });
+
+    function handleCountrySelection(feature) {
+      const name = feature.properties.ADMIN;
+      const capital = feature.properties.capital;
+
+      document.getElementById('country-details').innerHTML = `<p><b>Country:</b> <span id="country-name" style="color: blue; cursor: pointer;">${name}</span></p><p><b>Capital:</b> ${capital || 'N/A'}</p>`;
+
+      if (selectedCountryLayer) map.removeLayer(selectedCountryLayer);
+      selectedCountryLayer = L.geoJSON(feature, {
+        style: { fillColor: '#FFD700', weight: 2, color: 'black', fillOpacity: 0.8 }
+      }).addTo(map);
+      map.fitBounds(selectedCountryLayer.getBounds());
+
+      speakCountryName(name);
+      document.getElementById('back-button').style.display = 'block';
+
+      if (countrySelectedOnce) {
+        window.open(`${name.toLowerCase()}.html`, '_blank');
+      } else {
+        countrySelectedOnce = true;
+        splitScreen();
+      }
+
+      document.getElementById('country-name').onclick = () => {
+        window.open(`${name.toLowerCase()}.html`, '_blank');
+      };
+    }
+
+    function splitScreen() {
+      document.getElementById('map-container').style.flex = '1';
+      const detailsContainer = document.getElementById('details-container');
+      detailsContainer.style.flex = '1';
+      detailsContainer.style.width = '50%';
+    }
+
+    function speakCountryName(countryName) {
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(countryName);
+      utterance.lang = 'en-US';
+      synth.speak(utterance);
+    }
+
+    document.getElementById('back-button').addEventListener('click', () => {
+      if (selectedCountryLayer) map.removeLayer(selectedCountryLayer);
+      map.fitBounds(countryLayer.getBounds());
+      const detailsContainer = document.getElementById('details-container');
+      detailsContainer.style.flex = '0';
+      detailsContainer.style.width = '0';
+      document.getElementById('back-button').style.display = 'none';
+    });
+
+    function toggleCountryList() {
+      const countryListContainer = document.getElementById('country-list-container');
+      if (countryListContainer.style.display === 'none') {
+        countryListContainer.style.display = 'block';
+        populateCountryList(countriesData.features);
+      } else {
+        countryListContainer.style.display = 'none';
+      }
+    }
+
+    function populateCountryList(countries) {
+      const countryList = document.getElementById('country-list');
+      countryList.innerHTML = '';
+      countries.forEach(feature => {
+        const li = document.createElement('li');
+        const name = feature.properties.ADMIN;
+        const capital = feature.properties.capital || 'N/A';
+        li.textContent = `${name} - Capital: ${capital}`;
+        li.onclick = () => handleCountrySelection(feature);
+        countryList.appendChild(li);
+      });
+    }
+
+    function filterCountryList() {
+      const query = document.getElementById('country-search-bar').value.toLowerCase();
+      const filteredCountries = countriesData.features.filter(feature => {
+        const name = feature.properties.ADMIN.toLowerCase();
+        const capital = (feature.properties.capital || '').toLowerCase();
+        return name.includes(query) || capital.includes(query);
+      });
+      populateCountryList(filteredCountries);
+    }
+
+    function goToHomePage() {
+      window.location.href = 'home.html';  // Adjust this to the correct path to the home page
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive AI Map of Oman</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #search-container {
+            padding: 10px;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #country-name {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        #search-bar {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #main-container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        #map {
+            width: 50%;
+            height: 100%;
+        }
+        #details-container {
+            width: 50%;
+            padding: 20px;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: left;
+            font-size: 16px;
+            overflow: auto;
+        }
+        #state-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #state-list li {
+            padding: 8px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        #state-list li:hover {
+            background-color: #f0f0f0;
+        }
+        #back-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #back-button:hover {
+            background-color: #45a049;
+        }
+        #home-button, #world-map-button {
+            position: absolute;
+            top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #home-button:hover, #world-map-button:hover {
+            background-color: #45a049;
+        }
+        #home-button {
+            right: 10px;
+        }
+        #world-map-button {
+            right: 90px;
+        }
+    </style>
+</head>
+<body>
+    <button id="home-button">Home</button>
+    <button id="world-map-button">World Map</button>
+    <div id="search-container">
+        <span id="country-name">Oman</span>
+        <input id="search-bar" type="text" placeholder="Search for a Governorate..." />
+    </div>
+    <div id="main-container">
+        <div id="map"></div>
+        <div id="details-container">
+            <h3>Governorates and Capitals</h3>
+            <ul id="state-list"></ul>
+            <div id="state-name">Select a Governorate to view details</div>
+            <div id="capital-name"></div>
+            <button id="back-button" style="display:none;">Back</button>
+        </div>
+    </div>
+    <script>
+        const governoratesData = [
+            { name: "Muscat", capital: "Muscat" },
+            { name: "Dhofar", capital: "Salalah" },
+            { name: "Al Batinah North", capital: "Sohar" },
+            { name: "Al Batinah South", capital: "Barka" },
+            { name: "Al Dakhiliyah", capital: "Nizwa" },
+            { name: "Al Sharqiyah North", capital: "Ibra" },
+            { name: "Al Sharqiyah South", capital: "Sur" },
+            { name: "Al Wusta", capital: "Haima" },
+            { name: "Musandam", capital: "Khasab" },
+        ];
+        let originalGovernorateList = [...governoratesData];
+        const map = L.map('map').setView([21.4735, 55.9754], 6); // Coordinates for Oman
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        const governorateList = document.getElementById('state-list');
+        function populateGovernorateList(governorates) {
+            governorateList.innerHTML = '';
+            governorates.forEach(governorate => {
+                const li = document.createElement('li');
+                li.textContent = `${governorate.name} - Capital: ${governorate.capital}`;
+                li.addEventListener('click', () => handleGovernorateClick(governorate));
+                governorateList.appendChild(li);
+            });
+        }
+        populateGovernorateList(governoratesData);
+
+        function handleGovernorateClick(governorate) {
+            document.getElementById('state-name').textContent = `Governorate: ${governorate.name}`;
+            document.getElementById('capital-name').textContent = `Capital: ${governorate.capital}`;
+            const lat = 21.4735;  // Coordinates for Muscat
+            const lon = 55.9754;  // Coordinates for Muscat
+            map.setView([lat, lon], 7); // Zoom into governorate
+            L.marker([lat, lon]).addTo(map).bindPopup(`${governorate.name} - ${governorate.capital}`).openPopup();
+            document.getElementById('back-button').style.display = 'block'; // Show back button
+            speakText(`${governorate.name} - Capital: ${governorate.capital}`);
+        }
+
+        function speakText(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utterance);
+        }
+
+        document.getElementById('back-button').addEventListener('click', function() {
+            this.style.display = 'none'; 
+            document.getElementById('state-name').textContent = 'Select a Governorate to view details'; 
+            document.getElementById('capital-name').textContent = ''; 
+            map.setView([21.4735, 55.9754], 6); 
+            populateGovernorateList(originalGovernorateList); 
+        });
+
+        document.getElementById('search-bar').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredGovernorates = [];
+            governorateList.innerHTML = ''; 
+            governoratesData.forEach(governorate => {
+                if (governorate.name.toLowerCase().includes(searchTerm)) {
+                    const li = document.createElement('li');
+                    li.textContent = `${governorate.name} - Capital: ${governorate.capital}`;
+                    li.addEventListener('click', () => handleGovernorateClick(governorate));
+                    governorateList.appendChild(li);
+                    filteredGovernorates.push(governorate);
+                }
+            });
+        });
+
+        document.getElementById('home-button').addEventListener('click', function() {
+            window.location.href = 'Home.html';
+        });
+
+        document.getElementById('world-map-button').addEventListener('click', function() {
+            window.location.href = 'World.html';
+        });
+    </script>
+</body>
+</html>
